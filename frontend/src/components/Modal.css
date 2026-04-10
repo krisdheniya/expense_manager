@@ -1,0 +1,176 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3, 7, 18, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-md);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Hide scrollbar */
+  scrollbar-width: none;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.modal-header h2 {
+  margin-bottom: 0;
+}
+
+.amount-currency-row {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.flex-1 { flex: 1; }
+.currency-select { width: 100px; }
+
+/* Split Toggle Group */
+.split-options {
+  margin-bottom: var(--space-lg);
+  background: rgba(255,255,255,0.02);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.split-toggle-group {
+  display: flex;
+  background: var(--bg-base);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  overflow: hidden;
+}
+
+.split-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.split-btn:hover {
+  color: var(--text-primary);
+}
+
+.split-btn.active {
+  background: var(--bg-elevated);
+  color: var(--accent-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Mock Unequal Split */
+.unequal-split-preview {
+  padding-top: var(--space-sm);
+}
+
+.mock-split-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock-split-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-base);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+}
+
+.mock-input {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  width: 80px;
+  text-align: right;
+  padding: 4px 8px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.mock-input:focus {
+  border-color: var(--accent-primary);
+}
+
+.split-hint {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inline-icon {
+  position: relative;
+  top: 1px;
+}
+
+/* Settle Hero */
+.settle-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settle-icon-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--positive-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+}
+
+.settle-payment-flow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.settle-payment-flow .input-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-md);
+}
