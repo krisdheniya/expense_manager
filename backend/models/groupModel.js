@@ -58,20 +58,25 @@ groupSchema.index({ "members.user": 1 });
 groupSchema.index({ inviteCode: 1 });
 
 // Auto-generate invite code before first save
-groupSchema.pre("save", function (next) {
+groupSchema.pre("save", function () {
     if (!this.inviteCode) {
         this.inviteCode = crypto.randomBytes(4).toString("hex");
     }
-    next();
 });
 
 // Instance methods
 groupSchema.methods.isMember = function (userId) {
-    return this.members.some(member => member.user.toString() === userId.toString());
+    return this.members.some(member => {
+        const memberUserId = member.user._id || member.user;
+        return memberUserId.toString() === userId.toString();
+    });
 };
 
 groupSchema.methods.isAdmin = function (userId) {
-    const member = this.members.find(m => m.user.toString() === userId.toString());
+    const member = this.members.find(m => {
+        const memberUserId = m.user._id || m.user;
+        return memberUserId.toString() === userId.toString();
+    });
     return member ? member.role === "admin" : false;
 };
 

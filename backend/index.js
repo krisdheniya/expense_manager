@@ -15,8 +15,10 @@ const httpServer = createServer(app);
 // Attach Socket.IO to the HTTP server
 const io = new SocketIOServer(httpServer, {
     cors: {
-        origin: process.env.CORS_ORIGIN,
-        credentials: true
+        origin: process.env.CORS_ORIGIN === "*" 
+            ? true  // 'true' reflects the request origin, works with credentials
+            : process.env.CORS_ORIGIN,
+  credentials: true
     }
 });
 
@@ -30,9 +32,9 @@ initializeSocket(io);
 connectDB()
     .then(() => {
         httpServer.listen(process.env.PORT, () => {
-            console.log(`🚀 Server is running on port ${process.env.PORT}`);
-            console.log(`⚡ Socket.IO attached and listening`);
-            console.log(`📋 Health check: http://localhost:${process.env.PORT}/api/v1/health`);
+            console.log(`Server is running on port ${process.env.PORT}`);
+            console.log(`Socket.IO attached and listening`);
+            console.log(`Health check: http://localhost:${process.env.PORT}/api/v1/health`);
         }).on("error", (err) => {
             console.log("Failed to start server", err);
         });

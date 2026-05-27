@@ -82,7 +82,7 @@ expenseSchema.index({ paidBy: 1 });
 expenseSchema.index({ "splits.user": 1 });
 
 // Pre-save hook to calculate/validate splits
-expenseSchema.pre("save", function (next) {
+expenseSchema.pre("save", function () {
     const expense = this;
 
     if (expense.splitType === SPLIT_TYPES.EQUAL) {
@@ -101,22 +101,20 @@ expenseSchema.pre("save", function (next) {
         const roundedAmount = Math.round(expense.amount * 100) / 100;
 
         if (roundedTotal !== roundedAmount) {
-            return next(new Error(`Split amounts (${roundedTotal}) must equal the total amount (${roundedAmount})`));
+            throw new Error(`Split amounts (${roundedTotal}) must equal the total amount (${roundedAmount})`);
         }
     } else if (expense.splitType === SPLIT_TYPES.PERCENTAGE) {
         // Validate percentages sum to 100 and compute amounts
         const totalPercentage = expense.splits.reduce((sum, split) => sum + (split.percentage || 0), 0);
 
         if (Math.round(totalPercentage) !== 100) {
-            return next(new Error(`Split percentages must sum to 100 (got ${totalPercentage})`));
+            throw new Error(`Split percentages must sum to 100 (got ${totalPercentage})`);
         }
 
         expense.splits.forEach(split => {
             split.amount = Math.round((split.percentage / 100) * expense.amount * 100) / 100;
         });
     }
-
-    next();
 });
 
 const Expense = mongoose.model("Expense", expenseSchema);
